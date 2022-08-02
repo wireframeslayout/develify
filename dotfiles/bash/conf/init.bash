@@ -2,11 +2,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+# # If not running interactively, don't do anything
+# case $- in
+#     *i*) ;;
+#       *) return;;
+# esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -130,7 +130,6 @@ fi
 #eval `dircolors ~/.dircolors-solarized/dircolors.ansi-light`
 eval `dircolors ~/.dircolors-solarized/dircolors.256dark`
 
-
 ## exa alias
 if [[ $(command -v exa) ]]; then
   alias ls='exa --icons'
@@ -144,3 +143,7 @@ else
   alias lt='tree -I "node_modules|.git|.cache|vendor|tmp"'
   alias ltl='lt | less -r'
 fi
+
+
+
+

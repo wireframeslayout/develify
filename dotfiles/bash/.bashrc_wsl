@@ -1,0 +1,24 @@
+. ~/conf.d/init.bash
+
+function open() {
+	cmd.exe /c start $(wslpath -w $1)
+}
+
+function wstorm () {
+	cmd.exe /c wstorm $(wslpath -w $1)
+}
+
+function pstorm () {
+	cmd.exe /c pstorm $(wslpath -w $1)
+}
+
+function rmine () {
+	cmd.exe /c rmine $(wslpath -w $1)
+}
+
+function stree () {
+	cmd.exe /c stree $(wslpath -w $1)
+}
+
+eval "$(starship init bash)"
+#source ~/.bash_prompt
