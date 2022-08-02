@@ -17,3 +17,6 @@ function rmine () {
 function stree () {
 	cmd.exe /c stree $(wslpath -w $1)
 }
+
+eval "$(starship init bash)"
+#source ~/.bash_prompt

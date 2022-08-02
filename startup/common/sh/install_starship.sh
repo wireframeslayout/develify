@@ -2,5 +2,7 @@
 
 ## install starship
 echo "Install starship..."
-curl -sS https://starship.rs/install.sh | sh
+
+sudo curl -sS https://starship.rs/install.sh | sh
+
 echo "Install starship Done!"
