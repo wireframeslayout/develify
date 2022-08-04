@@ -4,7 +4,7 @@ if [[ $(command -v brew) ]];then
     echo "homebrew is already installed."
 else
     echo "start homebrew install"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     if [[ $(command -v python) ]]; then
         echo "python is already installed."
     else

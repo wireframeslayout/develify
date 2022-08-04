@@ -1,0 +1,32 @@
+export LANG=ja_JP.UTF-8
+export CLICOLOR=1
+
+path=(
+  /opt/homebrew/bin(N-/)
+  /opt/homebrew/sbin(N-/)
+  /usr/bin
+  /usr/sbin
+  /bin
+  /sbin
+  /usr/local/bin(N-/)
+  /usr/local/sbin(N-/)
+  /Library/Apple/usr/bin
+)
+
+
+if [ -d $(brew --prefix coreutils)/libexec/gnubin ]; then
+  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+  export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
+  alias ls='ls --color=auto'
+else
+  export LSCOLORS=gxfxcxdxbxegedabagacad
+  alias ls='ls -G'
+fi
+
+## path for mac
+
+typeset -U path PATH
+
+. ~/conf.d/init.zsh
+
+eval "$(starship init zsh)"

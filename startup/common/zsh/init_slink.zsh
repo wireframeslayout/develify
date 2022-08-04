@@ -6,19 +6,19 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 ## target
 case $1 in
     "mac")
-        SCRIPTNAME=".bashrc_mac";;
+        SCRIPTNAME=".zshrc_mac";;
     "wsl")
-        SCRIPTNAME=".bashrc_wsl";;
+        SCRIPTNAME=".zshrc_wsl";;
     *)
-        SCRIPTNAME=".bashrc_ubuntu";;
+        SCRIPTNAME=".zshrc_ubuntu";;
 esac
 
 ## change permission
-chmod +x -R $SCRIPT_DIR/../../../dotfiles
+chmod +x -R $SCRIPT_DIR/../../../dotfiles/
 
 ## synbolic links
 ln -nsf $SCRIPT_DIR/../../../dotfiles/conf/ ~/conf.d
-ln -sf $SCRIPT_DIR/../../../dotfiles/scripts/$SCRIPTNAME ~/.bashrc
+ln -sf $SCRIPT_DIR/../../../dotfiles/scripts/$SCRIPTNAME ~/.zshrc
 ln -nsf $SCRIPT_DIR/../../../dotfiles/.dircolors-solarized/ ~/.dircolors-solarized
 ln -sf $SCRIPT_DIR/../../../dotfiles/.vimrc ~/.vimrc
 ln -sf $SCRIPT_DIR/../../../dotfiles/.tmux.conf ~/.tmux.conf
