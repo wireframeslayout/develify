@@ -233,12 +233,16 @@ EXEC 01;38;5;64
 .sql             01;38;5;245
 .csv             01;38;5;245
 
+# php
+.php             01;38;5;207
+
 .js              01;38;5;226
 .config.js       01;04;38;5;226
 .ts              01;38;5;111
 
 .pug             38;5;179 # pug
 .tag.pug         38;5;196 # riot tag pug
+.tag         38;5;196 # riot tag pug
 .html            38;5;202
 .vue             38;5;156
 .json            38;5;195
