@@ -46,9 +46,12 @@ call neobundle#end()
 if has("syntax")
     syntax enable 
 endif
-set background=dark
-colorscheme solarized
-let g:solarized_termcolors=256
+"set background=dark
+"colorscheme solarized
+"let g:solarized_termcolors=256
+
+colorscheme molokai
+set t_Co=256 
 
 """"""""""""""""""""""""""""""
 " 各種オプションの設定
