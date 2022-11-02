@@ -1,9 +1,13 @@
 
-## Develify
-開発環境
+# Develify
 
-dotfiles
+## Features
 
+1. anyenvのインストール
+2. starshipでテンションの上がるコンソール画面
+3. exaで ls を拡張
+4. mac(zsh) / ubuntu / wsl に対応
+5. wslは特別なコマンドを追加（wstorm / pstorm / rmine / stree）し、開発に便利なWindowsアプリを起動
 
 WIP::
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "WSL Install Start."
+echo "Ubuntu Install Start."
 
 ## init.shの絶対パスを取得
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
