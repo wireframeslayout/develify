@@ -145,5 +145,5 @@ else
 fi
 
 
-
+export STARSHIP_CONFIG=~/.starshipconf/starship.toml
 
