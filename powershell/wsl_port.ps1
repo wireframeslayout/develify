@@ -1,36 +1,57 @@
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole("Administrators")) { Start-Process powershell.exe "-File `"$PSCommandPath`"" -Verb RunAs; exit }
+# Start SSH Service.
+wsl sudo service ssh start
 
-$remoteport = bash.exe -c "ifconfig eth0 | grep 'inet '"
-$found = $remoteport -match '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}';
- 
-if( $found ){
-  $remoteport = $matches[0];
-} else{
-  echo "The Script Exited, the ip address of WSL 2 cannot be found";
-  exit;
+# WSL2 network port forwarding script v1
+#   for enable script, 'Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser' in Powershell,
+#   for delete exist rules and ports use 'delete' as parameter, for show ports use 'list' as parameter.
+#   written by Daehyuk Ahn, Aug-1-2020
+
+# Display all portproxy information
+If ($Args[0] -eq "list") {
+    netsh interface portproxy show v4tov4;
+    exit;
+} 
+
+# If elevation needed, start new process
+If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
+{
+  # Relaunch as an elevated process:
+  Start-Process powershell.exe "-File",('"{0}"' -f $MyInvocation.MyCommand.Path),"$Args runas" -Verb RunAs
+  exit
 }
- 
-#[Ports]
- 
-#All the ports you want to forward separated by coma
-$ports=@(80,443,8080,6006,43306,50080,9000,8025,53306);
- 
- 
-#[Static ip]
-#You can change the addr to your ip config to listen to a specific address
-$addr='0.0.0.0';
-$ports_a = $ports -join ",";
- 
- 
-#Remove Firewall Exception Rules
-iex "Remove-NetFireWallRule -DisplayName 'WSL Firewall Unlock' ";
- 
-#adding Exception Rules for inbound and outbound Rules
-iex "New-NetFireWallRule -DisplayName 'WSL Firewall Unlock' -Direction Outbound -LocalPort $ports_a -Action Allow -Protocol TCP";
-iex "New-NetFireWallRule -DisplayName 'WSL Firewall Unlock' -Direction Inbound -LocalPort $ports_a -Action Allow -Protocol TCP";
- 
-for( $i = 0; $i -lt $ports.length; $i++ ){
-  $port = $ports[$i];
-  iex "netsh interface portproxy delete v4tov4 listenport=$port listenaddress=$addr";
-  iex "netsh interface portproxy add v4tov4 listenport=$port listenaddress=$addr connectport=$port connectaddress=$remoteport";
+
+# You should modify '$Ports' for your applications 
+$Ports = (2222,80,443,8080,22,8010,8000,8081,5173)
+
+# Check WSL ip address
+wsl hostname -I | Set-Variable -Name "WSL"
+$found = $WSL -match '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}';
+if (-not $found) {
+  echo "WSL2 cannot be found. Terminate script.";
+  exit;
+}`
+
+# Remove and Create NetFireWallRule
+Remove-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock';
+if ($Args[0] -ne "delete") {
+  New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Outbound -LocalPort $Ports -Action Allow -Protocol TCP;
+  New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Inbound -LocalPort $Ports -Action Allow -Protocol TCP;
+}
+
+# Add each port into portproxy
+$Addr = "0.0.0.0"
+Foreach ($Port in $Ports) {
+    iex "netsh interface portproxy delete v4tov4 listenaddress=$Addr listenport=$Port | Out-Null";
+    if ($Args[0] -ne "delete") {
+        iex "netsh interface portproxy add v4tov4 listenaddress=$Addr listenport=$Port connectaddress=$WSL connectport=$Port | Out-Null";
+    }
+}
+
+# Display all portproxy information
+netsh interface portproxy show v4tov4;
+
+# Give user to chance to see above list when relaunched start
+If ($Args[0] -eq "runas" -Or $Args[1] -eq "runas") {
+  Write-Host -NoNewLine 'Press any key to close! ';
+  $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 }
