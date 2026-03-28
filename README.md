@@ -176,6 +176,68 @@ TPM + tmux-powerline でモダンな tmux 環境を構築しています。
 - curl
 - [Nerd Font](https://www.nerdfonts.com/font-downloads) (JetBrainsMono 推奨)
 
+## Nerd Font のインストール
+
+Starship・oh-my-posh・tmux-powerline のアイコン表示には **Nerd Font** が必要です。
+**JetBrainsMono Nerd Font** を推奨しています。
+
+### ダウンロード
+
+[Nerd Fonts ダウンロードページ](https://www.nerdfonts.com/font-downloads) から **JetBrainsMono** をダウンロードしてください。
+
+または、develify のインストールスクリプトで自動インストールできます：
+
+```bash
+# Linux
+bash startup/common/sh/install_starship_font_linux.sh
+
+# macOS
+bash startup/common/sh/install_starship_font_mac.sh
+```
+
+### ターミナルへの適用
+
+#### Windows Terminal
+
+1. `設定` → 使用中のプロファイル → `外観`
+2. `フォント フェイス` で `JetBrainsMono Nerd Font` を選択
+3. 保存
+
+> 参考: [oh-my-posh - Windows Terminal](https://ohmyposh.dev/docs/installation/fonts)
+
+#### VS Code 統合ターミナル
+
+`settings.json` に以下を追加：
+
+```json
+{
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font"
+}
+```
+
+#### iTerm2 (macOS)
+
+1. `Preferences` → `Profiles` → `Text`
+2. `Font` で `JetBrainsMono Nerd Font` を選択
+
+> 参考: [Starship - Font Installation](https://starship.rs/guide/#step-2-setup-your-shell-to-use-starship)
+
+#### GNOME Terminal (Ubuntu)
+
+1. `設定` → 使用中のプロファイル → `テキスト`
+2. `カスタムフォント` にチェックを入れ、`JetBrainsMono Nerd Font` を選択
+
+#### Alacritty
+
+`alacritty.toml` に以下を追加：
+
+```toml
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+```
+
+> 詳細: [oh-my-posh Fonts ドキュメント](https://ohmyposh.dev/docs/installation/fonts) | [Nerd Fonts 公式](https://www.nerdfonts.com/)
+
 ## References
 
 - [Starship](https://starship.rs/)
