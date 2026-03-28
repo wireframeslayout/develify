@@ -9,6 +9,9 @@ then
     fi
 fi
 
+## ~/bin (oh-my-posh, prompt-switch etc.)
+export PATH="$HOME/bin:$PATH"
+
 eval `dircolors ~/.dircolors-solarized/dircolors.256dark`
 
 ## exa alias
