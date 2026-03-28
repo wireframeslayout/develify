@@ -9,6 +9,9 @@ then
     fi
 fi
 
+## ~/bin (oh-my-posh, prompt-switch etc.)
+export PATH="$HOME/bin:$PATH"
+
 eval `dircolors ~/.dircolors-solarized/dircolors.256dark`
 
 ## exa alias
@@ -24,5 +27,3 @@ else
   alias lt='tree -I "node_modules|.git|.cache|vendor|tmp"'
   alias ltl='lt | less -r'
 fi
-
-export STARSHIP_CONFIG=~/.starshipconf/starship.toml

@@ -34,4 +34,4 @@ else
   alias ltl='lt | less -r'
 fi
 
-eval "$(starship init bash)"
+source ~/conf.d/init_prompt.bash

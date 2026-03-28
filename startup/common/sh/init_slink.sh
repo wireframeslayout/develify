@@ -22,3 +22,7 @@ ln -sf $SCRIPT_DIR/../../../dotfiles/scripts/$SCRIPTNAME ~/.bashrc
 ln -nsf $SCRIPT_DIR/../../../dotfiles/.dircolors-solarized/ ~/.dircolors-solarized
 ln -sf $SCRIPT_DIR/../../../dotfiles/.vimrc ~/.vimrc
 ln -sf $SCRIPT_DIR/../../../dotfiles/.tmux.conf ~/.tmux.conf
+ln -nsf $SCRIPT_DIR/../../../dotfiles/tmux-powerline/ ~/.tmux-powerline
+ln -nsf $SCRIPT_DIR/../../../dotfiles/ohmyposh/ ~/.ohmyposhconf
+mkdir -p ~/bin
+ln -sf $SCRIPT_DIR/../../../dotfiles/scripts/prompt-switch.sh ~/bin/prompt-switch

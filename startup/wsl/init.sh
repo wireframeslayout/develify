@@ -11,12 +11,17 @@ bash $SCRIPT_DIR/../common/sh/init_slink.sh wsl
 ## install starship
 bash $SCRIPT_DIR/../common/sh/install_starship.sh
 
+## install oh-my-posh
+bash $SCRIPT_DIR/../common/sh/install_ohmyposh.sh
 
 ## install anyenv
 bash $SCRIPT_DIR/../common/sh/install_anyenv.sh
 
 ## install exa
 bash $SCRIPT_DIR/../common/sh/install_exa.sh
+
+## install tpm (tmux plugin manager)
+bash $SCRIPT_DIR/../common/sh/install_tpm.sh
 
 ## install neobundle
 bash $SCRIPT_DIR/../common/vim/install_neobundle.sh
