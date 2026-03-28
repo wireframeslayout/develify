@@ -24,5 +24,3 @@ else
   alias lt='tree -I "node_modules|.git|.cache|vendor|tmp"'
   alias ltl='lt | less -r'
 fi
-
-export STARSHIP_CONFIG=~/.starshipconf/starship.toml

@@ -20,8 +20,7 @@ function stree () {
 	cmd.exe /c stree $(wslpath -w $1)
 }
 
-eval "$(starship init bash)"
-#source ~/.bash_prompt
+source ~/conf.d/init_prompt.bash
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -144,6 +144,3 @@ else
   alias ltl='lt | less -r'
 fi
 
-
-export STARSHIP_CONFIG=~/.starshipconf/starship.toml
-

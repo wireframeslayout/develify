@@ -12,6 +12,9 @@ bash $SCRIPT_DIR/../common/sh/init_slink.sh mac
 ## install starship
 bash $SCRIPT_DIR/../common/sh/install_starship.sh
 
+## install oh-my-posh
+bash $SCRIPT_DIR/../common/sh/install_ohmyposh.sh
+
 ## install anyenv
 bash $SCRIPT_DIR/../common/sh/install_anyenv.sh
 

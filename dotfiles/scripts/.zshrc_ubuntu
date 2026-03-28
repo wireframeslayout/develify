@@ -1,2 +1,2 @@
 . ~/conf.d/init.zsh
-eval "$(starship init zsh)"
+source ~/conf.d/init_prompt.zsh
