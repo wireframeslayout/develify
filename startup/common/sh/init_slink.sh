@@ -9,6 +9,8 @@ case $1 in
         SCRIPTNAME=".bashrc_mac";;
     "wsl")
         SCRIPTNAME=".bashrc_wsl";;
+    "termux")
+        SCRIPTNAME=".bashrc_termux";;
     *)
         SCRIPTNAME=".bashrc_ubuntu";;
 esac

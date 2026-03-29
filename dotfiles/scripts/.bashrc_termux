@@ -1,0 +1,2 @@
+. ~/conf.d/init.bash
+source ~/conf.d/init_prompt.bash

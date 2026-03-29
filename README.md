@@ -1,7 +1,7 @@
 # Develify
 
 dotfiles 管理 & ワンライナーセットアップシステム。
-macOS / Ubuntu / WSL に対応し、一つのコマンドで開発環境を構築します。
+macOS / Ubuntu / WSL / Termux (Android) に対応し、一つのコマンドで開発環境を構築します。
 
 ## Features
 
@@ -24,6 +24,7 @@ git clone https://github.com/wireframeslayout/develify.git ~/develify
 bash ~/develify/startup/ubuntu/init.sh   # Ubuntu
 bash ~/develify/startup/wsl/init.sh      # WSL
 bash ~/develify/startup/mac/init.sh      # macOS
+bash ~/develify/startup/termux/init.sh   # Termux (Android)
 ```
 
 これだけで以下が自動的にセットアップされます：
@@ -64,6 +65,7 @@ develify/
 │   ├── scripts/
 │   │   ├── .bashrc_mac           # macOS 用 bashrc
 │   │   ├── .bashrc_ubuntu        # Ubuntu 用 bashrc
+│   │   ├── .bashrc_termux        # Termux 用 bashrc
 │   │   ├── .bashrc_wsl           # WSL 用 bashrc
 │   │   ├── .zshrc_mac            # macOS 用 zshrc
 │   │   ├── .zshrc_ubuntu         # Ubuntu 用 zshrc
@@ -87,6 +89,7 @@ develify/
 │   │   │   ├── install_starship.sh     # Starship インストール
 │   │   │   ├── install_starship_font_linux.sh  # Nerd Font (Linux)
 │   │   │   ├── install_starship_font_mac.sh    # Nerd Font (macOS)
+│   │   │   ├── install_starship_font_termux.sh # Nerd Font (Termux)
 │   │   │   └── install_tpm.sh          # TPM インストール
 │   │   ├── vim/
 │   │   │   └── install_neobundle.sh    # NeoBundle インストール
@@ -96,6 +99,8 @@ develify/
 │   │   ├── init.sh               # macOS セットアップエントリーポイント
 │   │   ├── init.zsh              # macOS zsh セットアップ
 │   │   └── install_homebrew.sh   # Homebrew インストール
+│   ├── termux/
+│   │   └── init.sh               # Termux セットアップエントリーポイント
 │   ├── ubuntu/
 │   │   └── init.sh               # Ubuntu セットアップエントリーポイント
 │   └── wsl/
@@ -193,6 +198,9 @@ bash startup/common/sh/install_starship_font_linux.sh
 
 # macOS
 bash startup/common/sh/install_starship_font_mac.sh
+
+# Termux (Android)
+bash startup/common/sh/install_starship_font_termux.sh
 ```
 
 ### ターミナルへの適用
