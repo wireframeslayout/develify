@@ -2,20 +2,20 @@
 # prompt-switch.sh - Switch between starship and oh-my-posh prompt engines
 #
 # Usage:
-#   prompt-switch {starship|ohmyposh} [-t|--theme <theme_name>]
+#   develify prompt-switch {starship|ohmyposh} [-t|--theme <theme_name>]
 #
 # Examples:
-#   prompt-switch starship                    # starship + default (starship.toml)
-#   prompt-switch starship -t tokyo-night     # starship + tokyo-night preset
-#   prompt-switch ohmyposh                    # oh-my-posh + default (develify.omp.json)
-#   prompt-switch ohmyposh -t night-owl       # oh-my-posh + built-in theme
+#   develify prompt-switch starship                    # starship + default (starship.toml)
+#   develify prompt-switch starship -t tokyo-night     # starship + tokyo-night preset
+#   develify prompt-switch ohmyposh                    # oh-my-posh + default (develify.omp.json)
+#   develify prompt-switch ohmyposh -t night-owl       # oh-my-posh + built-in theme
 
 set -euo pipefail
 
 PROMPT_ENGINE_FILE="$HOME/.prompt_engine"
 
 usage() {
-    echo "Usage: prompt-switch {starship|ohmyposh} [-t|--theme <theme_name>]"
+    echo "Usage: develify prompt-switch {starship|ohmyposh} [-t|--theme <theme_name>]"
     echo ""
     echo "Arguments:"
     echo "  starship    Use starship as prompt engine"
@@ -25,10 +25,10 @@ usage() {
     echo "  -t, --theme <name>  Theme name (default: built-in theme)"
     echo ""
     echo "Examples:"
-    echo "  prompt-switch starship"
-    echo "  prompt-switch starship -t tokyo-night"
-    echo "  prompt-switch ohmyposh"
-    echo "  prompt-switch ohmyposh -t night-owl"
+    echo "  develify prompt-switch starship"
+    echo "  develify prompt-switch starship -t tokyo-night"
+    echo "  develify prompt-switch ohmyposh"
+    echo "  develify prompt-switch ohmyposh -t night-owl"
     exit 1
 }
 
