@@ -14,7 +14,7 @@ RESET=$'\033[0m'
 cat <<EOF
 
 ${BOLD}  tmux Cheat Sheet (develify)${RESET}
-${DIM}  Prefix = Ctrl-b${RESET}
+${DIM}  Prefix = Ctrl-a${RESET}
 
 ${CYAN}  ── シェルコマンド ──${RESET}
 ${YELLOW}  tmux${RESET}                    新規セッション開始
