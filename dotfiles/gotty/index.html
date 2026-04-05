@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>{{ .title }}</title>
+  <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/index.css" />
+  <link rel="stylesheet" href="./css/xterm.css" />
+  <link rel="stylesheet" href="./css/xterm_customize.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @font-face {
+      font-family: "JetBrainsMono Nerd Font";
+      src: url("https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@latest/patched-fonts/JetBrainsMono/Ligatures/Regular/JetBrainsMonoNerdFont-Regular.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "JetBrainsMono Nerd Font";
+      src: url("https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@latest/patched-fonts/JetBrainsMono/Ligatures/Bold/JetBrainsMonoNerdFont-Bold.ttf") format("truetype");
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    .terminal,
+    .xterm-overlay {
+      font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="terminal"></div>
+  <script src="./auth_token.js"></script>
+  <script src="./config.js"></script>
+  <script>
+    // gotty.js より前に CanvasRenderingContext2D.font をインターセプトし、
+    // xterm.js のデフォルトフォントをカスタムフォントに置換する
+    (function() {
+      var CUSTOM_FONT = '"JetBrainsMono Nerd Font", "JetBrains Mono", monospace';
+      var desc = Object.getOwnPropertyDescriptor(CanvasRenderingContext2D.prototype, 'font');
+      Object.defineProperty(CanvasRenderingContext2D.prototype, 'font', {
+        set: function(v) {
+          if (v && typeof v === 'string' && v.indexOf('courier') !== -1) {
+            v = v.replace(/courier[\w-]*(?:\s*,\s*[\w"' -]+)*/gi, CUSTOM_FONT);
+          }
+          desc.set.call(this, v);
+        },
+        get: function() { return desc.get.call(this); }
+      });
+    })();
+  </script>
+  <script src="./js/gotty.js"></script>
+</body>
+
+</html>

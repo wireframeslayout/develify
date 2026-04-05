@@ -1,0 +1,4 @@
+// GoTTY config
+// NOTE: "index" in config file is not recognized by sorenisanerd/gotty v1.5.0.
+//       Use --index CLI option instead.
+//       e.g. gotty --index ~/.gotty.d/index.html -w tmux a -t main

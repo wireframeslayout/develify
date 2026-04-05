@@ -17,6 +17,8 @@ Usage: develify <command> [options]
 Commands:
   prompt-switch   プロンプトエンジンの切り替え (starship / oh-my-posh)
   tmux-cs         tmux キーバインド チートシート表示
+  gotty-install   GoTTY (Web ターミナル) のインストール
+  gotty-start     GoTTY をカスタム設定で起動
   help            このヘルプを表示
   version         バージョン表示
 
@@ -32,6 +34,14 @@ case "${1:-}" in
     tmux-cs)
         shift
         exec "$SCRIPT_DIR/tmux-cs.sh" "$@"
+        ;;
+    gotty-install)
+        shift
+        exec "$SCRIPT_DIR/gotty-install.sh" "$@"
+        ;;
+    gotty-start)
+        shift
+        exec "$SCRIPT_DIR/gotty-start.sh" "$@"
         ;;
     help|--help|-h)
         usage
