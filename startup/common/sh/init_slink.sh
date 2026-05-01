@@ -13,8 +13,8 @@ case $1 in
         SCRIPTNAME=".bashrc_ubuntu";;
 esac
 
-## change permission
-chmod +x -R $SCRIPT_DIR/../../../dotfiles
+## change permission (only shell scripts)
+find $SCRIPT_DIR/../../../dotfiles -name '*.sh' -exec chmod +x {} +
 
 ## synbolic links
 ln -nsf $SCRIPT_DIR/../../../dotfiles/conf/ ~/conf.d
