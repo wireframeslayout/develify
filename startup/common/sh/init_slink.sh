@@ -13,8 +13,8 @@ case $1 in
         SCRIPTNAME=".bashrc_ubuntu";;
 esac
 
-## change permission
-chmod +x -R $SCRIPT_DIR/../../../dotfiles
+## change permission (only shell scripts)
+find $SCRIPT_DIR/../../../dotfiles -name '*.sh' -exec chmod +x {} +
 
 ## synbolic links
 ln -nsf $SCRIPT_DIR/../../../dotfiles/conf/ ~/conf.d
@@ -25,4 +25,4 @@ ln -sf $SCRIPT_DIR/../../../dotfiles/.tmux.conf ~/.tmux.conf
 ln -nsf $SCRIPT_DIR/../../../dotfiles/tmux-powerline/ ~/.tmux-powerline
 ln -nsf $SCRIPT_DIR/../../../dotfiles/ohmyposh/ ~/.ohmyposhconf
 mkdir -p ~/bin
-ln -sf $SCRIPT_DIR/../../../dotfiles/scripts/prompt-switch.sh ~/bin/prompt-switch
+ln -sf $SCRIPT_DIR/../../../dotfiles/scripts/develify.sh ~/bin/develify
