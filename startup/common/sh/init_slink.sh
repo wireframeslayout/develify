@@ -26,3 +26,8 @@ ln -nsf $SCRIPT_DIR/../../../dotfiles/tmux-powerline/ ~/.tmux-powerline
 ln -nsf $SCRIPT_DIR/../../../dotfiles/ohmyposh/ ~/.ohmyposhconf
 mkdir -p ~/bin
 ln -sf $SCRIPT_DIR/../../../dotfiles/scripts/develify.sh ~/bin/develify
+
+## WSL: clip-copy (UTF-8対応クリップボードコピー)
+if [ "$1" = "wsl" ]; then
+    ln -sf $SCRIPT_DIR/../../../dotfiles/scripts/clip-copy.sh ~/bin/clip-copy
+fi
