@@ -1,10 +1,11 @@
-
 #!/bin/bash
+# macOS 用 (bash) セットアップエントリーポイント。
 
-echo "Mac Install Start."
+set -euo pipefail
 
-## init.shの絶対パスを取得
-SCRIPT_DIR=$(cd $(dirname $0); pwd)
+echo "Mac (bash) Install Start."
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 ## parse options
 WITH_GOTTY=false
@@ -14,30 +15,44 @@ for arg in "$@"; do
     esac
 done
 
+## install homebrew (starship / oh-my-posh の前に必須)
+bash "$SCRIPT_DIR/install_homebrew.sh"
+
+## brew が現セッションにまだ無い場合は PATH に通す
+if ! command -v brew >/dev/null 2>&1; then
+    if [ -x /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -x /usr/local/bin/brew ]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+fi
+
 ## init synbolic link
-bash $SCRIPT_DIR/../common/sh/init_slink.sh mac
+bash "$SCRIPT_DIR/../common/sh/init_slink.sh" mac
 
 ## install starship
-bash $SCRIPT_DIR/../common/sh/install_starship.sh
+bash "$SCRIPT_DIR/../common/sh/install_starship.sh"
 
 ## install oh-my-posh
-bash $SCRIPT_DIR/../common/sh/install_ohmyposh.sh
+bash "$SCRIPT_DIR/../common/sh/install_ohmyposh.sh"
 
 ## install anyenv
-bash $SCRIPT_DIR/../common/sh/install_anyenv.sh
+bash "$SCRIPT_DIR/../common/sh/install_anyenv.sh"
 
 ## install exa
-bash $SCRIPT_DIR/../common/sh/install_exa.sh mac
+bash "$SCRIPT_DIR/../common/sh/install_exa.sh" mac
 
 ## install tpm (tmux plugin manager)
-bash $SCRIPT_DIR/../common/sh/install_tpm.sh
+bash "$SCRIPT_DIR/../common/sh/install_tpm.sh"
 
 ## install neobundle
-bash $SCRIPT_DIR/../common/vim/install_neobundle.sh
+bash "$SCRIPT_DIR/../common/vim/install_neobundle.sh"
 
 ## install gotty (optional)
 if $WITH_GOTTY; then
-    bash $SCRIPT_DIR/../common/sh/install_gotty.sh
+    bash "$SCRIPT_DIR/../common/sh/install_gotty.sh"
 fi
 
-source ~/.bashrc
+echo ""
+echo "Mac (bash) Install Done!"
+echo "新しいターミナルを開くか、'source ~/.bashrc' を実行してください。"
