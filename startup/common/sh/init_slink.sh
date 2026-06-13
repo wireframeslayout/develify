@@ -21,6 +21,7 @@ mkdir -p "$HOME/bin"
 ## synbolic links
 ln -nsf "$ROOT_DIR/dotfiles/conf"                    "$HOME/conf.d"
 ln -sf  "$ROOT_DIR/dotfiles/scripts/$SCRIPTNAME"     "$HOME/.bashrc"
+ln -sf  "$ROOT_DIR/dotfiles/scripts/.bash_profile"   "$HOME/.bash_profile"
 ln -nsf "$ROOT_DIR/dotfiles/.dircolors-solarized"    "$HOME/.dircolors-solarized"
 ln -sf  "$ROOT_DIR/dotfiles/.vimrc"                  "$HOME/.vimrc"
 ln -sf  "$ROOT_DIR/dotfiles/.tmux.conf"              "$HOME/.tmux.conf"
