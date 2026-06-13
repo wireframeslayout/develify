@@ -17,12 +17,18 @@ elif command -v dircolors >/dev/null 2>&1; then
     eval "$(dircolors ~/.dircolors-solarized/dircolors.256dark)"
 fi
 
-## exa alias
-if command -v exa >/dev/null 2>&1; then
-    alias ls='exa --icons'
-    alias ll='exa --icons -la'
-    alias l1='exa -1'
-    alias lt='exa -Ta --icons -I "node_modules|.git|.cache|vendor|tmp"'
+## eza / exa alias (exa は EOL のため eza を優先)
+__develify_ls_cmd=""
+if command -v eza >/dev/null 2>&1; then
+    __develify_ls_cmd=eza
+elif command -v exa >/dev/null 2>&1; then
+    __develify_ls_cmd=exa
+fi
+if [ -n "$__develify_ls_cmd" ]; then
+    alias ls="$__develify_ls_cmd --icons"
+    alias ll="$__develify_ls_cmd --icons -la"
+    alias l1="$__develify_ls_cmd -1"
+    alias lt="$__develify_ls_cmd -Ta --icons -I 'node_modules|.git|.cache|vendor|tmp'"
     alias ltl='lt | less -r'
 else
     alias ll='ls -la'
@@ -30,3 +36,4 @@ else
     alias lt='tree -I "node_modules|.git|.cache|vendor|tmp"'
     alias ltl='lt | less -r'
 fi
+unset __develify_ls_cmd
