@@ -1,6 +1,7 @@
 export LANG=ja_JP.UTF-8
 export CLICOLOR=1
 
+## Homebrew (Apple Silicon / Intel) を最優先 PATH に
 path=(
   /opt/homebrew/bin(N-/)
   /opt/homebrew/sbin(N-/)
@@ -14,26 +15,36 @@ path=(
   /Library/Apple/usr/bin
 )
 
-
-if [ -d $(brew --prefix coreutils)/libexec/gnubin ]; then
-  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-  export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
-  alias ls='ls --color=auto'
+## GNU coreutils (任意) — 入っていれば優先利用
+if type brew &>/dev/null; then
+  COREUTILS_PREFIX="$(brew --prefix coreutils 2>/dev/null)"
+  if [ -n "$COREUTILS_PREFIX" ] && [ -d "$COREUTILS_PREFIX/libexec/gnubin" ]; then
+    export PATH="$COREUTILS_PREFIX/libexec/gnubin:$PATH"
+    export MANPATH="$COREUTILS_PREFIX/libexec/gnuman:$MANPATH"
+    alias ls='ls --color=auto'
+  else
+    export LSCOLORS=gxfxcxdxbxegedabagacad
+    alias ls='ls -G'
+  fi
+  unset COREUTILS_PREFIX
 else
   export LSCOLORS=gxfxcxdxbxegedabagacad
   alias ls='ls -G'
 fi
 
+## zsh-completions / zsh-autosuggestions (任意)
 if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  autoload -Uz compinit && compinit
+  BREW_PREFIX="$(brew --prefix 2>/dev/null)"
+  if [ -n "$BREW_PREFIX" ]; then
+    [ -d "$BREW_PREFIX/share/zsh-completions" ] && FPATH="$BREW_PREFIX/share/zsh-completions:$FPATH"
+    [ -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
+      source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    autoload -Uz compinit && compinit
+  fi
+  unset BREW_PREFIX
 fi
-
-## path for mac
 
 typeset -U path PATH
 
-. ~/conf.d/init.zsh
-
-source ~/conf.d/init_prompt.zsh
+[ -r ~/conf.d/init.zsh ] && . ~/conf.d/init.zsh
+[ -r ~/conf.d/init_prompt.zsh ] && source ~/conf.d/init_prompt.zsh
