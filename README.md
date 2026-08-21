@@ -125,10 +125,23 @@ develify/
 | `~/.starshipconf/` | `starship/` |
 | `~/bin/develify` | `dotfiles/scripts/develify.sh` |
 
+なお `~/.bash_profile` だけはリンクではなく**追記**で扱います。bash はログインシェルとして
+起動されると `~/.bashrc` を読まず `~/.bash_profile` (無ければ `~/.bash_login` → `~/.profile`)
+だけを読むため、`~/.bashrc` へのリンクを張っただけでは macOS のターミナル
+(Terminal.app / iTerm2 / Ghostty) で設定が適用されません。`~/.bash_profile` に `~/.bashrc` を
+読み込むブロックを追記して解決しています (Homebrew 等のインストーラが書き込んだ内容は保持されます)。
+
+Ubuntu / WSL は既定で `~/.profile` が `~/.bashrc` を読むため、
+`~/.bash_profile` が既に存在する場合のみ追記対象になります。
+
 ## Shell Initialization Flow
 
 ```
 シェル起動
+  │
+  ├─ [ログインシェルの場合]
+  │    └─ ~/.bash_profile             ← bash はここしか読まない
+  │         └─ source ~/.bashrc       ← init_slink.sh が追記する橋渡し
   │
   ├─ ~/.bashrc (or ~/.zshrc)          ← platform別 RC ファイル
   │    │
@@ -175,6 +188,12 @@ develify prompt-switch ohmyposh -t night-owl     # oh-my-posh + テーマ指定
 source ~/.bashrc                                 # 反映
 ```
 
+> **注意 (macOS + bash)**
+> oh-my-posh の bash 用 init は bash 4.2 以降の機能を使いますが、macOS に標準で入っている
+> bash は 3.2 です。そのままでは起動のたびに警告が出て starship にフォールバックします。
+> oh-my-posh を実際に使うには [ログインシェルの変更](#ログインシェルの変更-chsh) を参照してください。
+> starship のみ使う場合はこの対応は不要です。
+
 詳細は [docs/prompt-switch.md](docs/prompt-switch.md) を参照。
 
 ## tmux
@@ -194,9 +213,67 @@ TPM + tmux-powerline でモダンな tmux 環境を構築しています。
 ## Requirements
 
 - Git
-- Bash >= 3.2
+- Bash >= 3.2 (oh-my-posh を使う場合のみ >= 4.2 — [ログインシェルの変更](#ログインシェルの変更-chsh) 参照)
 - curl
 - [Nerd Font](https://www.nerdfonts.com/font-downloads) (JetBrainsMono 推奨)
+
+## ログインシェルの変更 (chsh)
+
+macOS 標準の bash は **3.2** です (GPLv3 を避けるため Apple が更新していない)。
+oh-my-posh は bash 4.2 以降を要求するため、使うには Homebrew の bash に切り替えます。
+starship のみを使う場合、この作業は不要です。
+
+### 1. 新しい bash をインストール
+
+```bash
+brew install bash
+```
+
+インストール先は Apple Silicon なら `/opt/homebrew/bin/bash`、Intel なら `/usr/local/bin/bash` です。
+以下は `$(brew --prefix)/bin/bash` で書いているので、どちらの環境でもそのまま使えます。
+
+### 2. `/etc/shells` に登録
+
+`chsh` は `/etc/shells` に登録されていないシェルを拒否するため、先に追記します。
+
+```bash
+echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells
+```
+
+同じ行を二重に追加しないよう、先に `grep bash /etc/shells` で確認してください。
+
+### 3. ログインシェルを変更
+
+```bash
+chsh -s "$(brew --prefix)/bin/bash"
+```
+
+パスワードを求められます。`sudo` は不要です (自分のアカウントを変更するため)。
+
+### 4. 反映を確認
+
+**変更はすでに開いているターミナルには反映されません。** 新しいターミナルを開いてから確認します。
+
+```bash
+echo "$BASH_VERSION"          # 5.x.x になっていれば成功
+dscl . -read ~/ UserShell     # ログインシェルの登録内容
+```
+
+`$BASH_VERSION` が 5 系になれば、`develify prompt-switch ohmyposh` で oh-my-posh が実際に使われます。
+
+### 元に戻す / 他のシェルにする
+
+```bash
+chsh -s /bin/bash             # macOS 標準の bash 3.2 に戻す
+chsh -s /bin/zsh              # zsh にする (macOS のデフォルト)
+```
+
+利用可能なシェルの一覧は `cat /etc/shells` で確認できます。
+
+> **補足**
+> ターミナルアプリ側で起動コマンドを明示している場合 (iTerm2 の *Command* 設定、
+> Ghostty の `command` 設定など)、`chsh` よりそちらが優先されます。
+> 変更が反映されない場合はターミナル側の設定も確認してください。
 
 ## Nerd Font のインストール
 
