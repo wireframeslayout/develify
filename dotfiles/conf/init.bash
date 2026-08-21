@@ -133,12 +133,19 @@ export PATH="$HOME/bin:$PATH"
 #eval `dircolors ~/.dircolors-solarized/dircolors.ansi-light`
 eval `dircolors ~/.dircolors-solarized/dircolors.256dark`
 
-## exa alias
-if [[ $(command -v exa) ]]; then
-  alias ls='exa --icons'
-  alias ll='exa --icons -la'
-  alias l1='exa -1'
-  alias lt='exa -Ta --icons -I "node_modules|.git|.cache|vendor|tmp"'
+## eza (exa の後継) alias
+## exa は上流アーカイブ済みのため eza を優先。既存環境の exa もフォールバックで許容する。
+EZA_BIN=""
+if command -v eza >/dev/null 2>&1; then
+  EZA_BIN=eza
+elif command -v exa >/dev/null 2>&1; then
+  EZA_BIN=exa
+fi
+if [ -n "$EZA_BIN" ]; then
+  alias ls="$EZA_BIN --icons"
+  alias ll="$EZA_BIN --icons -la"
+  alias l1="$EZA_BIN -1"
+  alias lt="$EZA_BIN -Ta --icons -I \"node_modules|.git|.cache|vendor|tmp\""
   alias ltl='lt | less -r'
 else
   alias ll='ls -la'
@@ -146,4 +153,5 @@ else
   alias lt='tree -I "node_modules|.git|.cache|vendor|tmp"'
   alias ltl='lt | less -r'
 fi
+unset EZA_BIN
 

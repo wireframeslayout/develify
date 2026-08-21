@@ -10,7 +10,7 @@ macOS / Ubuntu / WSL に対応し、一つのコマンドで開発環境を構�
 - **プロンプトエンジン切り替え** — starship ⇔ oh-my-posh をコマンド一つで切り替え ([詳細](docs/prompt-switch.md))
 - **tmux 環境** — TPM + tmux-powerline によるモダンな tmux 環境 ([詳細](docs/tmux.md))
 - **anyenv** — 言語バージョン管理 (nodenv, rbenv, pyenv 等)
-- **exa** — `ls` の拡張版 (アイコン・ツリー表示)
+- **eza** — `ls` の拡張版 (アイコン・ツリー表示)。旧 `exa` の後継 (上流アーカイブ済みのため移行)
 - **Solarized dircolors** — ターミナルカラーの統一
 - **Nerd Font** — JetBrainsMono Nerd Font によるアイコン対応
 - **WSL 拡張コマンド** — wstorm / pstorm / rmine / stree (Windows アプリ連携)
@@ -33,7 +33,7 @@ bash ~/develify/startup/mac/init.sh      # macOS
 2. Starship プロンプトのインストール
 3. oh-my-posh のインストール
 4. anyenv のインストール
-5. exa のインストール
+5. eza のインストール
 6. TPM (Tmux Plugin Manager) のインストール
 7. NeoBundle (Vim プラグインマネージャ) のインストール
 
@@ -85,7 +85,7 @@ develify/
 │   │   ├── sh/
 │   │   │   ├── init_slink.sh           # シンボリックリンク作成
 │   │   │   ├── install_anyenv.sh       # anyenv インストール
-│   │   │   ├── install_exa.sh          # exa インストール
+│   │   │   ├── install_eza.sh          # eza (exa 後継) インストール
 │   │   │   ├── install_ohmyposh.sh     # oh-my-posh インストール
 │   │   │   ├── install_starship.sh     # Starship インストール
 │   │   │   ├── install_starship_font_linux.sh  # Nerd Font (Linux)
@@ -132,7 +132,7 @@ develify/
   │
   ├─ ~/.bashrc (or ~/.zshrc)          ← platform別 RC ファイル
   │    │
-  │    ├─ source ~/conf.d/init.bash   ← 共通設定 (PATH, alias, anyenv, exa)
+  │    ├─ source ~/conf.d/init.bash   ← 共通設定 (PATH, alias, anyenv, eza)
   │    │
   │    └─ source ~/conf.d/init_prompt.bash  ← プロンプトエンジン初期化
   │         │
@@ -267,5 +267,5 @@ family = "JetBrainsMono Nerd Font"
 - [tmux-powerline](https://github.com/erikw/tmux-powerline)
 - [TPM](https://github.com/tmux-plugins/tpm)
 - [anyenv](https://github.com/anyenv/anyenv)
-- [exa](https://the.exa.website/)
+- [eza](https://github.com/eza-community/eza)
 - [Nerd Fonts](https://www.nerdfonts.com/)
