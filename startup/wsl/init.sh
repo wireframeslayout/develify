@@ -25,8 +25,8 @@ bash $SCRIPT_DIR/../common/sh/install_ohmyposh.sh
 ## install anyenv
 bash $SCRIPT_DIR/../common/sh/install_anyenv.sh
 
-## install exa
-bash $SCRIPT_DIR/../common/sh/install_exa.sh
+## install eza (exa の後継)
+bash $SCRIPT_DIR/../common/sh/install_eza.sh
 
 ## install tpm (tmux plugin manager)
 bash $SCRIPT_DIR/../common/sh/install_tpm.sh
