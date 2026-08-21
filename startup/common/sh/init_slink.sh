@@ -33,3 +33,35 @@ ln -sf  "$ROOT_DIR/dotfiles/scripts/develify.sh"     "$HOME/bin/develify"
 if [ "${1:-}" = "wsl" ]; then
     ln -sf "$ROOT_DIR/dotfiles/scripts/clip-copy.sh" "$HOME/bin/clip-copy"
 fi
+
+## ~/.bash_profile から ~/.bashrc を読み込ませる
+##
+## bash はログインシェルとして起動されると ~/.bashrc を読まず、
+## ~/.bash_profile (無ければ ~/.bash_login → ~/.profile) だけを読む。
+## macOS のターミナル (Terminal.app / iTerm2 / Ghostty) はいずれもシェルを
+## ログインシェルとして起動するため、~/.bashrc へのリンクを張っただけでは
+## develify の設定が一切適用されない。
+##
+## Ubuntu / WSL は既定で ~/.profile が ~/.bashrc を読む作りになっているので、
+## ~/.bash_profile が存在する場合のみ対象にする
+## (~/.bash_profile を新規に作ると bash が ~/.profile を読まなくなるため)。
+##
+## Homebrew や各種インストーラが書き込む内容を壊さないよう、
+## シンボリックリンクではなく追記で行う。
+BASH_PROFILE="$HOME/.bash_profile"
+if [ "${1:-ubuntu}" = "mac" ] || [ -e "$BASH_PROFILE" ]; then
+    if [ -e "$BASH_PROFILE" ] && grep -q '\.bashrc' "$BASH_PROFILE"; then
+        echo "$BASH_PROFILE already loads ~/.bashrc."
+    else
+        cat >> "$BASH_PROFILE" <<'PROFILE'
+
+# >>> develify >>>
+# ログインシェルは ~/.bashrc を読まないため、ここから読み込む。
+if [ -r ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+# <<< develify <<<
+PROFILE
+        echo "added ~/.bashrc loader to $BASH_PROFILE"
+    fi
+fi
